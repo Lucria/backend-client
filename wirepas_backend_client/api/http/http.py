@@ -529,8 +529,7 @@ class wbcHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         """ Decodes an incoming http request regardless of its verb"""
         __default_command = "info"
 
-        timing = PerformanceValue("api call duration ({})".format(self.path)
-                                  ,False)
+
 
         # Parse into commands and parameters
         slitted = urllib.parse.urlsplit(self.path)
@@ -542,8 +541,12 @@ class wbcHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
         except KeyError:
             pass
 
+        timing = PerformanceValue("'{}' api call duration".format(command)
+                                  , False)
+
         if command == "":
             pass
+
         if self.debug_comms is True:
             self.logger.info(
                 dict(
